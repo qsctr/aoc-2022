@@ -1,0 +1,11 @@
+name: day03
+
+dependencies:
+- base >= 4.7 && < 5
+- split
+
+library:
+  source-dirs:
+  - .
+  verbatim:
+    other-modules:
