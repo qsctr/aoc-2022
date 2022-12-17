@@ -2,6 +2,7 @@ name: aoc2022
 
 dependencies:
 - base >= 4.7 && < 5
+- containers
 - split
 
 library:
