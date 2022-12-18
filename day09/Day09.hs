@@ -16,18 +16,17 @@ twoKnots = numVisited . foldl' move ((0, 0), (0, 0), S.singleton (0, 0))
 
 tenKnots = S.size . snd . foldl' move (replicate 10 (0, 0), S.singleton (0, 0))
   where move s (d, n) = iterate mv s !! n
-          where mv (h@(hx, hy):ks, v) = (h':ks', S.insert (last ks') v)
-                  where h' = case d of
+          where mv (h@(hx, hy):ks, v) = (ks', S.insert (last ks') v)
+                  where ks' = scanl' follow h' ks
+                        h' = case d of
                           'U' -> (hx, hy + 1)
                           'D' -> (hx, hy - 1)
                           'L' -> (hx - 1, hy)
                           'R' -> (hx + 1, hy)
-                        ks' = snd $ mapAccumL follow h' ks
-        follow (hx', hy') (tx, ty) = (t', t')
-          where t'
-                  | abs dx <= 1, abs dy <= 1 = (tx, ty)
-                  | otherwise = (tx + signum dx, ty + signum dy)
-                dx = hx' - tx
+        follow (hx', hy') (tx, ty)
+          | abs dx <= 1, abs dy <= 1 = (tx, ty)
+          | otherwise = (tx + signum dx, ty + signum dy)
+          where dx = hx' - tx
                 dy = hy' - ty
 
 main = do
